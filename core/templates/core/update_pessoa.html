@@ -1,0 +1,10 @@
+<h2>Updating Pessoa: {{ pessoa }}</h2>
+
+
+<form action="{% url 'core_pessoa_update' pessoa.id %}" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Cadastrar</button>
+</form>
