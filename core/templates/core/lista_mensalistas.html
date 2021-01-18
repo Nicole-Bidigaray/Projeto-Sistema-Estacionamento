@@ -1,20 +1,55 @@
-<h2>Lista Mensalistas</h2>
+{% extends 'base.html' %}
+{% load bootstrap %}
 
+{% block menu %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core_home' %}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servços</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'core_lista_pessoas' %}">Pessoas</a>
+                <a class="dropdown-item" href="{% url 'core_lista_veiculos' %}">Veiculos</a>
+                <a class="dropdown-item" href="{% url 'core_lista_movrotativos' %}">Rotativo</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item active" href="{% url 'core_lista_mensalista' %}">Mensalistas</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">Logout</a>
+        </li>
+    </ul>
+{% endblock %}
 
-<ul>
-{% for mensalista in mensalistas %}
-    <li> 
-        <a href="{% url 'core_mensalista_update' mensalista.id %}">
-            {{ mensalista.veiculo }} - {{ mensalista.inicio }}
-        </a>  
-    </li>
-{% endfor %}
-</ul>
+{% block main %}
+    <div class="row">
+        <div class="col-12">
+            <h1>Lista Mensalistas</h1>
+        </div>
+    </div>
 
-<form action="{% url 'core_mensalista_novo' %}" method="POST">
-    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="{% url 'core_mensalista_novo' %}" method="POST">
+                {% csrf_token %}
 
-    {{ form.as_p }}
+                {{ form|bootstrap }}
 
-    <button type="submit">Cadastrar</button>
-</form>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <ul>
+                {% for mensalista in mensalistas %}
+                    <li> 
+                        <a href="{% url 'core_mensalista_update' mensalista.id %}">
+                            {{ mensalista.veiculo }} - {{ mensalista.inicio }}
+                        </a>  
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
