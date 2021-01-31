@@ -7,25 +7,34 @@
             <a class="nav-link" href="{% url 'core_home' %}">Home</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servços</a>
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Serviços</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'core_lista_pessoas' %}">Pessoas</a>
                 <a class="dropdown-item" href="{% url 'core_lista_veiculos' %}">Veiculos</a>
-                <a class="dropdown-item active" href="{% url 'core_lista_movrotativos' %}">Rotativo</a>
+                <a class="dropdown-item active" href="{% url 'core_movrotativos_novo' %}">Rotativo</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'core_lista_mensalista' %}">Mensalistas</a>
+                <a class="dropdown-item" href="{% url 'core_mensalista_novo' %}">Mensalistas</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Logout</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Olá, {{ user }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
     </ul>
 {% endblock %}
 
 {% block main %}
     <div class="row">
-        <div class="col-12">
-            <h1>Lista Movimentos Rotativos</h1>
+        <div class="col-12"><br>
+            <h1>Cadastrar Movimento Rotativo</h1>
         </div>
     </div>
 
@@ -40,15 +49,32 @@
             </form>
         </div>
         <div class="col-sm-6">
-            <ul>
-                {% for mov in mov_rot %}
-                    <li> 
-                        <a href="{% url 'core_movrotativos_update' mov.id %}"> 
-                            {{ mov.checkin }} - {{ mov.veiculo.placa }}
-                        </a>  
-                    </li>
-                {% endfor %}
-            </ul>
+            <h1>Lista Movimentos Rotativos</h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Checkin</th>
+                        <th scope="col">Checkout</th>
+                        <th scope="col">Valor Hora</th>
+                        <th scope="col">Veículo</th>
+                        <th scope="col">Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mov in mov_rot %}
+                        <tr>
+                            <th scope="row">{{ mov.id }}</th>
+                            <td>{{ mov.checkin }}</td>
+                            <td>{{ mov.checkout }}</td>
+                            <td>R$ {{ mov.valor_hora }}</td>
+                            <td>{{ mov.veiculo }}</td>
+                            <td>{{ mov.pago }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

@@ -7,7 +7,7 @@
             <a class="nav-link" href="{% url 'core_home' %}">Home</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servços</a>
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Serviços</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'core_lista_pessoas' %}">Pessoas</a>
                 <a class="dropdown-item active" href="{% url 'core_lista_veiculos' %}">Veiculos</a>
@@ -16,16 +16,25 @@
                 <a class="dropdown-item" href="{% url 'core_lista_mensalista' %}">Mensalistas</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Logout</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Olá, {{ user }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
     </ul>
 {% endblock %}
 
 {% block main %}
     <div class="row">
-        <div class="col-12">
-            <h1>Lista veiculos</h1>
+        <div class="col-12"><br>
+            <h1>Cadastrar Veiculo</h1>
         </div>
     </div>
 
@@ -40,13 +49,28 @@
             </form>
         </div>
         <div class="col-sm-6">
-            <ul>
-                {% for veiculo in veiculos %}
-                    <li> 
-                        <a href="{% url 'core_veiculo_update' veiculo.id %}">{{ veiculo.placa }}</a>  
-                    </li>
-                {% endfor %}
-            </ul>
+            <h1>Lista Veículos</h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Placa</th>
+                        <th scope="col">Proprietário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for veiculo in veiculos %}
+                        <tr>
+                            <th scope="row">{{ veiculo.id }}</th>
+                            <td>{{ veiculo.marca }}</td>
+                            <td>{{ veiculo.placa }}</td>
+                            <td>{{ veiculo.proprietario }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

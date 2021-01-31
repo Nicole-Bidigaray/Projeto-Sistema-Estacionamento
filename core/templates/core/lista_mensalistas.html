@@ -7,25 +7,34 @@
             <a class="nav-link" href="{% url 'core_home' %}">Home</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Servços</a>
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Serviços</a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'core_lista_pessoas' %}">Pessoas</a>
-                <a class="dropdown-item" href="{% url 'core_lista_veiculos' %}">Veiculos</a>
+                <a class="dropdown-item" href="{% url 'core_lista_veiculos' %}">Veículos</a>
                 <a class="dropdown-item" href="{% url 'core_lista_movrotativos' %}">Rotativo</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item active" href="{% url 'core_lista_mensalista' %}">Mensalistas</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">Logout</a>
-        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link disabled" href="">Olá, {{ user }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+        {% endif %}
     </ul>
 {% endblock %}
 
 {% block main %}
     <div class="row">
-        <div class="col-12">
-            <h1>Lista Mensalistas</h1>
+        <div class="col-12"><br>
+            <h1>Cadastrar Mensalista</h1>
         </div>
     </div>
 
@@ -40,15 +49,28 @@
             </form>
         </div>
         <div class="col-sm-6">
-            <ul>
-                {% for mensalista in mensalistas %}
-                    <li> 
-                        <a href="{% url 'core_mensalista_update' mensalista.id %}">
-                            {{ mensalista.veiculo }} - {{ mensalista.inicio }}
-                        </a>  
-                    </li>
-                {% endfor %}
-            </ul>
+            <h1>Lista Mensalistas</h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Veículo</th>
+                        <th scope="col">Início</th>
+                        <th scope="col">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mensalista in mensalistas %}
+                        <tr>
+                            <th scope="row">{{ mensalista.id }}</th>
+                            <td>{{ mensalista.veiculo }}</td>
+                            <td>{{ mensalista.inicio }}</td>
+                            <td>R$ {{ mensalista.valor_mes }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

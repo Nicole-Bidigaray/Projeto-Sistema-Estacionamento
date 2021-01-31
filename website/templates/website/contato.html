@@ -1,0 +1,89 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block menu %}
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website_servicos' %}">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website_sobre' %}">Sobre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'website_plano' %}">Plano</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'website_contato' %}">Contatos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core_home' %}">Sistema</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+<div class="row row-space">
+    <div class="col-6">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNome">Nome</label>
+                    <input type="text" class="form-control" id="inputNome" placeholder="Seu nome aqui" name="nome">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputSobreNome">Sobrenome</label>
+                    <input type="text" class="form-control" id="inputSobreNome" placeholder="Seu sobrenome aqui" name="sobrenome">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">Endereço</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="endereco">
+            </div>
+            <div class="form-group">
+                <textarea name="" id="" cols="65" rows="10" class="form-control" name="mensagem"></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" name="receber-noticias">
+                <label class="form-check-label" for="gridCheck">
+                  Receber notícias
+                </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+    <div class="col-6">
+        <p>
+                Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. 
+                Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo! 
+                Si u mundo tá muito paradis? Toma um mé que o mundo vai girarzis! Pra lá , 
+                depois divoltis porris, paradis.
+                Per aumento de cachacis, eu reclamis. Posuere libero varius. 
+                Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. 
+                Mauris nec dolor in eros commodo tempor. Aenean aliquam molestie leo, 
+                vitae iaculis nisl. In elementis mé pra quem é amistosis quis leo.
+        </p>
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7706.040450405216!2d-46.68080437658652!3d-23.53845157135467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce581e1ae2ba17%3A0x9d4c6d389817f169!2sPerdizes%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1612058229334!5m2!1spt-BR!2sbr" 
+          width="500" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0">
+        </iframe>
+        
+    </div>
+</div>
+{% endblock %}
